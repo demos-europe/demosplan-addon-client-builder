@@ -15,7 +15,7 @@
     "postcss": "^8.4.20",
     "postcss-loader": "^8.0.0",
     "sass": "^1.56.1",
-    "sass-loader": "^14.1.1",
+    "sass-loader": "^16.0.1",
     "style-loader": "^4.0.0",
     "vue-loader": "^15.11.1",
     "webpack": "^5.75.0",
