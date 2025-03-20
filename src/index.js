@@ -81,7 +81,14 @@ function configBuilder(addon_name, entrypoints) {
       rules: [
         {
           test: /\.vue$/,
-          loader: 'vue-loader'
+          loader: 'vue-loader',
+          options: {
+            compilerOptions: {
+              compatConfig: {
+                MODE: 2
+              }
+            }
+          }
         },
         {
           test: /\.(js|jsx)$/i,
