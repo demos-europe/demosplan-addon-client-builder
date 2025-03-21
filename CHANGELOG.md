@@ -2,6 +2,8 @@
 
 ## UNRELEASED
 
+- Bump vue-loader to v16.8.3; add compatConfig to vue-loader  ([#246](https://github.com/demos-europe/demosplan-js-addon/pull/246))
+
 ## v0.0.9 - 12-03-2024
 
 > [!IMPORTANT]
