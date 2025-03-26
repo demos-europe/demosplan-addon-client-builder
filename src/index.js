@@ -88,7 +88,6 @@ function configBuilder(addon_name, entrypoints) {
         {
           test: /\.vue$/,
           loader: 'vue-loader',
-          exclude: /node_modules\/@demos-europe\/demosplan-ui/,
           options: {
             compilerOptions: {
               compatConfig: {
