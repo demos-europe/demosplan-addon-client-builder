@@ -65,12 +65,6 @@ function configBuilder(addon_name, entrypoints) {
       library: addon_name
     },
     resolve: {
-      alias: {
-        '@demos-europe/demosplan-ui': path.resolve(
-          __dirname,
-          'node_modules/@demos-europe/demosplan-ui/dist/demosplan-ui.umd.js'
-        )
-      },
       extensions: ['.js', '.vue']
     },
     devtool: isProduction ? 'nosources-source-map': 'eval-source-map',
