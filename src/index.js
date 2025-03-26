@@ -66,8 +66,8 @@ function configBuilder(addon_name, entrypoints) {
     },
     resolve: {
       alias: {
-        '@demos-europe/demosplan-ui$': path.resolve(
-          process.cwd(),
+        '@demos-europe/demosplan-ui': path.resolve(
+          __dirname,
           'node_modules/@demos-europe/demosplan-ui/dist/demosplan-ui.umd.js'
         )
       },
