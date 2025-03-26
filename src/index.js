@@ -82,6 +82,7 @@ function configBuilder(addon_name, entrypoints) {
         {
           test: /\.vue$/,
           loader: 'vue-loader',
+          exclude: /node_modules/,
           options: {
             compilerOptions: {
               compatConfig: {
