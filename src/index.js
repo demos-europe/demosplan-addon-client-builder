@@ -65,6 +65,12 @@ function configBuilder(addon_name, entrypoints) {
       library: addon_name
     },
     resolve: {
+      alias: {
+        '@demos-europe/demosplan-ui': path.resolve(
+          __dirname,
+          'node_modules/@demos-europe/demosplan-ui/dist/demosplan-ui.umd.js'
+        )
+      },
       extensions: ['.js', '.vue']
     },
     devtool: isProduction ? 'nosources-source-map': 'eval-source-map',
@@ -82,7 +88,7 @@ function configBuilder(addon_name, entrypoints) {
         {
           test: /\.vue$/,
           loader: 'vue-loader',
-          exclude: file => /node_modules/.test(file) && /@demos-europe\/demosplan-ui/.test(file),
+          exclude: /node_modules\/@demos-europe\/demosplan-ui/,
           options: {
             compilerOptions: {
               compatConfig: {
