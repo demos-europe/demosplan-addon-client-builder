@@ -67,9 +67,6 @@ function configBuilder(addon_name, entrypoints) {
     resolve: {
       extensions: ['.js', '.vue']
     },
-    externals: {
-      vue: 'Vue',
-    },
     devtool: isProduction ? 'nosources-source-map': 'eval-source-map',
     plugins: [
       new MiniCssExtractPlugin(),

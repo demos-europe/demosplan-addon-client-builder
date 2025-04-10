@@ -4,7 +4,7 @@
   "description": "Base dependency for frontend configuration in demosplan-core addons.",
   "license": "MIT",
   "main": "./src/index.js",
-  "dependencies": {
+  "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "autoprefixer": "^10.4.13",
