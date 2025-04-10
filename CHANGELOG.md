@@ -2,6 +2,9 @@
 
 ## UNRELEASED
 
+- Externalize Vue ([#247](https://github.com/demos-europe/demosplan-js-addon/pull/247))
+
+
 ## v0.0.10 - 21-03-2025
 
 - Bump vue-loader to v16.8.3; add compatConfig to vue-loader  ([#246](https://github.com/demos-europe/demosplan-js-addon/pull/246))
