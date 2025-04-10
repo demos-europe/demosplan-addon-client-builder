@@ -2,7 +2,7 @@
 
 ## UNRELEASED
 
-- Use DevDepenencies instead of dependencies ([#247](https://github.com/demos-europe/demosplan-js-addon/pull/247))
+- Use DevDependencies instead of dependencies ([#247](https://github.com/demos-europe/demosplan-js-addon/pull/247))
 
 
 ## v0.0.10 - 21-03-2025
