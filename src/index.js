@@ -87,7 +87,8 @@ function configBuilder(addon_name, entrypoints) {
               compatConfig: {
                 MODE: 2
               }
-            }
+            },
+            customBlocks: ['license']
           }
         },
         {
