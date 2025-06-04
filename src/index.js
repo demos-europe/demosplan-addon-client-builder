@@ -80,6 +80,10 @@ function configBuilder(addon_name, entrypoints) {
     module: {
       rules: [
         {
+          resourceQuery: /blockType=license/,
+          loader: path.resolve(__dirname, './removeSFCBlockLoader.js')
+        },
+        {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
