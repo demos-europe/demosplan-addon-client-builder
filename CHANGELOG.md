@@ -2,7 +2,9 @@
 
 ## UNRELEASED
 
-- Add a new rule to config builder for custom blocks ([#249](https://github.com/demos-europe/demosplan-js-addon/pull/249))
+## v0.0.11 - 04-06-2025
+- 
+- Add a new rule to config builder for custom "license" blocks ([#249](https://github.com/demos-europe/demosplan-js-addon/pull/249))
 - Use DevDependencies instead of dependencies ([#247](https://github.com/demos-europe/demosplan-js-addon/pull/247))
 
 ## v0.0.10 - 21-03-2025
