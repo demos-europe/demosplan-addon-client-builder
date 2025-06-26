@@ -2,6 +2,8 @@
 
 ## UNRELEASED
 
+- Add packages imported directly in index.js to the dependencies section of package.json ([#251](https://github.com/demos-europe/demosplan-js-addon/pull/251))
+
 ## v0.0.12 - 26-06-2025
 
 - Add a new rule to config builder for custom "license" blocks ([#249](https://github.com/demos-europe/demosplan-js-addon/pull/249))
