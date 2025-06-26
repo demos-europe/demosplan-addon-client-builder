@@ -1,6 +1,6 @@
 {
   "name": "@demos-europe/demosplan-addon-client-builder",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Base dependency for frontend configuration in demosplan-core addons.",
   "license": "MIT",
   "main": "./src/index.js",
@@ -26,5 +26,6 @@
   },
   "engines": {
     "node": ">= 18.12.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
