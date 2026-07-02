@@ -2,6 +2,8 @@
 
 ## UNRELEASED
 
+- Declare `webpack` as a `peerDependency` so the consuming addon always supplies a single webpack copy. Previously webpack was only a `devDependency`, which happened to work via hoisting but was neither explicit nor enforced: when a consumer's webpack version diverged from the one resolved for the plugins imported here (`webpack-assets-manifest`, `mini-css-extract-plugin`, `vue-loader`), a second webpack copy could be installed. That made `webpack-assets-manifest` throw `The 'compilation' argument must be an instance of Compilation` and aborted the addon UI build before `dist/` was written.
+
 ## v0.0.13 - 26-06-2025
 
 - Add packages imported directly in index.js to the dependencies section of package.json ([#251](https://github.com/demos-europe/demosplan-js-addon/pull/251))
