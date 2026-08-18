@@ -30,7 +30,7 @@ function resolve (dir) {
  * )
  * ```
  *
- * @param {String} addon_name the name, d'uh
+ * @param {String} addon_name kept for call-site compatibility; ES module output has no named global to attach, so it's unused here
  * @param {Object} entrypoints name-mapped entry points dictionary
  * @returns {Options} webpack configuration
  */
@@ -51,18 +51,20 @@ function configBuilder(addon_name, entrypoints) {
       import: entrypoints[key]
     }
     entrypoints[key]['library'] = {
-      name: key,
-      type: 'window'
+      type: 'module'
     }
   }
 
   return {
     entry: entrypoints,
     mode: isProduction ? 'production' : 'development',
+    experiments: {
+      outputModule: true
+    },
     output: {
       path: resolve('dist'),
-      filename: `[name].umd.js`,
-      library: addon_name
+      filename: `[name].esm.js`,
+      module: true
     },
     resolve: {
       extensions: ['.js', '.vue']
