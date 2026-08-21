@@ -9,6 +9,9 @@
     "vue-loader": "^16.8.3",
     "webpack-assets-manifest": "^5.1.0"
   },
+  "peerDependencies": {
+    "webpack": "^5.75.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
