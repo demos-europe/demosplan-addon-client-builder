@@ -1,0 +1,16 @@
+demosplan_addon:
+  humanName: DemosExample
+  vendor: DEMOS plan GmbH
+  description: |
+    addon description telling someone everything about what this does
+  entry: DemosEurope\DemosplanAddon\ExampleAddon\ExampleAddon
+  permissionInitializer: DemosEurope\DemosplanAddon\ExampleAddon\Configuration\Permissions\PermissionInitializer
+  ui:
+    manifest: dist/assets-manifest.json
+    hooks:
+      import.tabs:
+        entry: FancyImport
+        options:
+          title: 'A fancy import mode'
+      administration.edit.extra.fields:
+        entry: AdditionalSetting

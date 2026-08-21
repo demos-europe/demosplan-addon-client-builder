@@ -1,4 +1,6 @@
+const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
@@ -150,12 +152,112 @@ function configBuilder(addon_name, entrypoints) {
 }
 
 /**
+ * Convert a dot-notated hook key (e.g. `administration.edit.extra.fields`)
+ * into the PascalCase directory name addons are expected to use for that
+ * hook's components (e.g. `AdministrationEditExtraFields`).
+ *
+ * @param {String} hookKey
+ * @returns {String}
+ */
+function hookKeyToDirectory (hookKey) {
+  return hookKey
+    .split('.')
+    .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join('')
+}
+
+/**
+ * Derive the webpack entrypoints dictionary from a `demosplan-addon.yml`
+ * `ui.hooks` section, following the addon convention of placing hook
+ * components at `client/hooks/<PascalCaseHookKey>/<EntryName>.vue`.
+ *
+ * A hook's `entry` value may list several component names separated by
+ * commas (e.g. `entry: AllowedSenderEmailList, AnotherComponent`).
+ *
+ * @param {Object} hooks the parsed `ui.hooks` section
+ * @returns {Object} name-mapped entry points dictionary, as expected by `build()`
+ */
+function entriesFromHooks (hooks) {
+  const entrypoints = {}
+
+  for (const [hookKey, hookConfig] of Object.entries(hooks || {})) {
+    const directory = hookKeyToDirectory(hookKey)
+    const names = String(hookConfig.entry).split(',').map(name => name.trim())
+
+    for (const name of names) {
+      entrypoints[name] = resolve(path.join('client/hooks', directory, `${name}.vue`))
+    }
+  }
+
+  return entrypoints
+}
+
+/**
+ * Locate the `@vue/compat` build that vue-loader's `compatConfig` option
+ * requires, walking up from the current addon towards the monorepo root
+ * where it is expected to be hoisted.
+ *
+ * @param {String} fromDir
+ * @returns {String|null} absolute path to the `@vue/compat` ESM bundle, or null if not found
+ */
+function resolveVueCompatPath (fromDir) {
+  let currentDir = fromDir
+
+  while (currentDir !== path.parse(currentDir).root) {
+    const vuePath = path.join(currentDir, 'node_modules/@vue/compat/dist/vue.esm-bundler.js')
+
+    if (fs.existsSync(vuePath)) {
+      return vuePath
+    }
+
+    currentDir = path.dirname(currentDir)
+  }
+
+  return null
+}
+
+/**
+ * Build a webpack config straight from a `demosplan-addon.yml` file, without
+ * requiring the addon to maintain its own webpack config at all.
+ *
+ * ## Usage
+ *
+ * Point webpack at this package's own config file instead of an addon-local one:
+ *
+ * ```
+ * webpack --config node_modules/@demos-europe/demosplan-addon-client-builder/webpack.config.js
+ * ```
+ *
+ * run with the addon's directory as the current working directory.
+ *
+ * @param {String} yamlPath path to `demosplan-addon.yml`, defaults to `./demosplan-addon.yml` relative to cwd
+ * @returns {Options} webpack configuration
+ */
+function buildFromYaml (yamlPath) {
+  const resolvedYamlPath = yamlPath || resolve('demosplan-addon.yml')
+  const manifest = yaml.load(fs.readFileSync(resolvedYamlPath, 'utf8'))
+  const addon = manifest.demosplan_addon || {}
+  const hooks = (addon.ui || {}).hooks || {}
+
+  const config = configBuilder(addon.humanName, entriesFromHooks(hooks))
+
+  const vueCompatPath = resolveVueCompatPath(process.cwd())
+  if (vueCompatPath) {
+    config.resolve.alias = config.resolve.alias || {}
+    config.resolve.alias.vue = vueCompatPath
+  }
+
+  return config
+}
+
+/**
  * Expose a webpack config builder and useful helpers
  * for entrypoint configuration.
  *
  */
 const DemosplanAddon = {
   build: configBuilder,
+  buildFromYaml: buildFromYaml,
   resolve: resolve
 }
 
