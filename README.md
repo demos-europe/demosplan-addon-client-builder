@@ -33,15 +33,15 @@ demosplan_addon:
   ui:
     hooks:
       import.tabs:
-        entry: EmailImport
+        entry: SpecialImport
       administration.edit.extra.fields:
-        entry: AllowedSenderEmailList
+        entry: SpecialImportSettings
 ```
 
 Each hook key is expected to have a matching PascalCase directory under
 `client/hooks/`, so the above resolves to
-`client/hooks/ImportTabs/EmailImport.vue` and
-`client/hooks/AdministrationEditExtraFields/AllowedSenderEmailList.vue`.
+`client/hooks/ImportTabs/SpecialImport.vue` and
+`client/hooks/AdministrationEditExtraFields/SpecialImportSettings.vue`.
 A hook's `entry` may list several component names separated by commas.
 
 Point webpack straight at this package's own config file, run from the
