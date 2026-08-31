@@ -185,7 +185,13 @@ function entriesFromHooks (hooks) {
     const names = String(hookConfig.entry).split(',').map(name => name.trim())
 
     for (const name of names) {
-      entrypoints[name] = resolve(path.join('client/hooks', directory, `${name}.vue`))
+      const entrypoint = resolve(path.join('client/hooks', directory, `${name}.vue`))
+
+      if (!fs.existsSync(entrypoint)) {
+        throw SyntaxError(`Expected to find entrypoint component ${name}.vue at ${entrypoint}`)
+      }
+
+      entrypoints[name] = entrypoint
     }
   }
 

@@ -45,3 +45,21 @@ test('the derived config actually builds', async () => {
   assert.equal(fs.existsSync(path.join(distDir, 'FancyImport.esm.js')), true)
   assert.equal(fs.existsSync(path.join(distDir, 'AdditionalSetting.esm.js')), true)
 })
+
+test('throws when a hook references a component that does not exist', () => {
+  const missingEntryDir = setupFixture('yaml-addon-missing-entry')
+  process.chdir(missingEntryDir)
+
+  try {
+    assert.throws(
+      () => DemosplanAddon.buildFromYaml(),
+      {
+        name: 'SyntaxError',
+        message: `Expected to find entrypoint component MissingComponent.vue at ${path.join(missingEntryDir, 'client/hooks/ImportTabs/MissingComponent.vue')}`
+      }
+    )
+  } finally {
+    process.chdir(workDir)
+    fs.rmSync(missingEntryDir, { recursive: true, force: true })
+  }
+})
