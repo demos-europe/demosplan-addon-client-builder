@@ -2,6 +2,10 @@
 
 ## UNRELEASED
 
+- Move all webpack loaders and Babel back to `dependencies` (reverting v0.0.11 change)
+  - Webpack config references these loaders by name, so they must be installed and resolvable when addons consume this package
+  - Required for addons with Vue components that have `<style>` blocks
+
 - Declare `webpack` as a `peerDependency` so the consuming addon always supplies a single webpack copy. Previously webpack was only a `devDependency`, which happened to work via hoisting but was neither explicit nor enforced: when a consumer's webpack version diverged from the one resolved for the plugins imported here (`webpack-assets-manifest`, `mini-css-extract-plugin`, `vue-loader`), a second webpack copy could be installed. That made `webpack-assets-manifest` throw `The 'compilation' argument must be an instance of Compilation` and aborted the addon UI build before `dist/` was written.
 - **Breaking:** Build output switched from UMD/`window`-global bundles (`[name].umd.js`) to real ES modules (`[name].esm.js`), so consumers can `import()` addon entrypoints directly instead of `eval()`-ing fetched source and reading a global. Requires `demosplan-core` to serve addon assets by URL rather than embedding source in the RPC response.
 
