@@ -2,6 +2,8 @@
 
 ## UNRELEASED
 
+## v0.0.14 - 16-09-2026
+
 - Declare `webpack` as a `peerDependency` so the consuming addon always supplies a single webpack copy. Previously webpack was only a `devDependency`, which happened to work via hoisting but was neither explicit nor enforced: when a consumer's webpack version diverged from the one resolved for the plugins imported here (`webpack-assets-manifest`, `mini-css-extract-plugin`, `vue-loader`), a second webpack copy could be installed. That made `webpack-assets-manifest` throw `The 'compilation' argument must be an instance of Compilation` and aborted the addon UI build before `dist/` was written.
 - **Breaking:** Bump `@babel/core`/`@babel/preset-env` to v8 and raise the required `engines.node` from `>= 18.12.0` to `^22.18.0 || >=24.11.0` to match, since Babel 8 refuses to run on older Node versions. Consumers still on Node 18–20 need to upgrade their runtime before installing this version. Note that Babel 8 also changes several defaults (compilation targets, JSX runtime, removal of `loose`/`spec`) — addons that ship their own `babel.config.js`/`.babelrc` should review it against the [Babel v8 migration guide](https://babeljs.io/docs/v8-migration), since this package's `babel-loader` rule has no options of its own and simply defers to the consumer's config.
 
